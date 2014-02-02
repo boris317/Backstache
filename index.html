@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/handlebars.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/backbone.js"></script>
+  <script src="js/backstache.js"></script>
+  <script id="bodyTemplate"  type="text/x-handlebars-template">
+    <div id="MainContent">
+      {{view 'subView1'}}
+    </div>
+  </script>
+
+  <script id="subView1Template"  type="text/x-handlebars-template">
+    <ul>
+      <li>{{firstName}}</li>
+      <li>{{lastName}}</li>
+    </ul>
+  </script>
+
+  <script type="text/javascript">
+    var BodyView = Backstache.View.extend({
+      el: "#foo",
+      template: "bodyTemplate",
+
+      initialize: function() {
+        this.addSubView("subView1", new SubView1())
+      },
+
+      render: function() {
+        this.$el.append(this.renderTemplate());
+      }
+
+    });
+
+    var SubView1 = Backstache.View.extend({
+      template: "subView1Template",
+      initialize: function() {
+        this.context = {
+          "firstName": "shawn",
+          "lastName": "adams"
+        };
+      },
+
+      render: function() {
+        return this.renderTemplate();
+      }
+
+    });
+
+    $(document).ready(function() {
+      var v = new BodyView();
+      v.render();
+    });
+  </script>
+</head>
+<body>
+<div id="foo"></div>
+</body>
+</html>
