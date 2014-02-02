@@ -1,1 +1,1 @@
-Handlebar subviews for bacbone
+Handlebars subviews for Backbone.js
